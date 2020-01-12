@@ -3,7 +3,7 @@
 int main() {
 	while (1) {
 		int Order_Sign = Choose_Order_Sign();
-		//¸ù¾İÑ¡Ôñ²Ëµ¥¹¦ÄÜ·µ»ØÖµÀ´³õÊ¼»¯½ÓÏÂÀ´º¯ÊıµÄ¹¦ÄÜ
+		//æ ¹æ®é€‰æ‹©èœå•åŠŸèƒ½è¿”å›å€¼æ¥åˆå§‹åŒ–æ¥ä¸‹æ¥å‡½æ•°çš„åŠŸèƒ½
 		if (Order_Sign == 1) {
 			SetUp = &SetUp1;
 			Computer_Dump = &Computer_Dump1;
@@ -85,7 +85,7 @@ void SetUp1() {
 		printf("%02d  ", adress);
 		gets_s(ch);
 		while (1) {
-			order = atoi(ch);//²ÉÓÃµÃµ½×Ö·û´®ÀàĞÍÔÙ×ª»»³ÉÕûĞÍÀ´ÊµÏÖ¶ÔÊäÈëµÄÕıÎóĞÔÅĞ¶Ï£¬ÏÂÍ¬
+			order = atoi(ch);//é‡‡ç”¨å¾—åˆ°å­—ç¬¦ä¸²ç±»å‹å†è½¬æ¢æˆæ•´å‹æ¥å®ç°å¯¹è¾“å…¥çš„æ­£è¯¯æ€§åˆ¤æ–­ï¼Œä¸‹åŒ
 			int operationCode = order / 100;
 			if (order == 0) {
 				printf("* Please load the right SML.\n\n");
@@ -110,7 +110,7 @@ void SetUp1() {
 		if (order == 23333) {
 			break;
 		}
-		memory[adress] = order;//·ûºÏÒªÇóÇÒ²»ÎªÌø³öÖ¸ÁîµÄÓï¾ä´æÈëÄÚ´æ£¬ÏÂÍ¬
+		memory[adress] = order;//ç¬¦åˆè¦æ±‚ä¸”ä¸ä¸ºè·³å‡ºæŒ‡ä»¤çš„è¯­å¥å­˜å…¥å†…å­˜ï¼Œä¸‹åŒ
 	}
 	printf("* Program loading complete, Program execution begins.\n");
 	printf("--------------------------\n");
@@ -135,7 +135,7 @@ void SetUp2() {
 		if (operationCode != 10 && operationCode != 11 && operationCode != 20 && operationCode != 21 && operationCode != 30 && operationCode != 31 && operationCode != 32 && operationCode != 33 && operationCode != 40 && operationCode != 41 && operationCode != 42 && operationCode != 43) {
 			printf("\n* There are something wrong in your loading file.\n\n");
 			file_error = 1;
-			return;//²»·ûºÏÒªÇóµÄÎÄ¼şÊäÈëÖ±½ÓÌø³ö½ÏÎªºÏÀí
+			return;//ä¸ç¬¦åˆè¦æ±‚çš„æ–‡ä»¶è¾“å…¥ç›´æ¥è·³å‡ºè¾ƒä¸ºåˆç†
 		}
 		memory[adress] = order;
 	}
@@ -145,14 +145,14 @@ void SetUp2() {
 }
 
 int Run() {
-	Proccessor.structionregister = memory[Proccessor.structioncounter];//µÃµ½Ö´ĞĞÓï¾ä
-	//·Ö³öÖ´ĞĞÖ¸ÁîºÍÄÚ´æ
+	Proccessor.structionregister = memory[Proccessor.structioncounter];//å¾—åˆ°æ‰§è¡Œè¯­å¥
+	//åˆ†å‡ºæ‰§è¡ŒæŒ‡ä»¤å’Œå†…å­˜
 	Proccessor.operationcode = Proccessor.structionregister / 100;
 	Proccessor.operand = Proccessor.structionregister % 100;
 	switch (Proccessor.operationcode)
 	{
-		//ÊäÈë / Êä³ö²Ù×÷
-	case READ:                  //°ÑÒ»¸ö×Ö´ÓÖÕ¶Ë¶ÁÈëÖ¸¶¨µÄÄÚ´æµ¥Ôª
+		//è¾“å…¥ / è¾“å‡ºæ“ä½œ
+	case READ:                  //æŠŠä¸€ä¸ªå­—ä»ç»ˆç«¯è¯»å…¥æŒ‡å®šçš„å†…å­˜å•å…ƒ
 		printf("* Please enter the read number:");
 		while (scanf("%d", &memory[Proccessor.operand])!=1) {
 			printf("\n* Please enter the right number:");
@@ -162,32 +162,32 @@ int Run() {
 		printf("\n\n");
 		Proccessor.structioncounter++;
 		break;
-	case WRITE:                 //°ÑÖ¸¶¨ÄÚ´æµ¥ÔªÖĞµÄ×ÖĞ´ÈëÖÕ¶Ë
+	case WRITE:                 //æŠŠæŒ‡å®šå†…å­˜å•å…ƒä¸­çš„å­—å†™å…¥ç»ˆç«¯
 		printf("* Write the number in memory %d:%d\n", Proccessor.operand, memory[Proccessor.operand]);
 		printf("\n\n");
 		Proccessor.structioncounter++;
 		break;
 
-		//¼ÓÔØ / ´æ´¢²Ù×÷
-	case LOAD:                  //°ÑÖ¸¶¨ÄÚ´æµ¥ÔªÖĞµÄ×Ö¼ÓÔØµ½ÀÛ¼ÓÆ÷
+		//åŠ è½½ / å­˜å‚¨æ“ä½œ
+	case LOAD:                  //æŠŠæŒ‡å®šå†…å­˜å•å…ƒä¸­çš„å­—åŠ è½½åˆ°ç´¯åŠ å™¨
 		Proccessor.accumulator = memory[Proccessor.operand];
 		Proccessor.structioncounter++;
 		break;
-	case STORE:                 //°ÑÀÛ¼ÓÆ÷ÖĞµÄ×Ö´æ´¢ÔÚÖ¸¶¨ÄÚ´æµ¥ÔªÖĞ
+	case STORE:                 //æŠŠç´¯åŠ å™¨ä¸­çš„å­—å­˜å‚¨åœ¨æŒ‡å®šå†…å­˜å•å…ƒä¸­
 		memory[Proccessor.operand] = Proccessor.accumulator;
 		Proccessor.structioncounter++;
 		break;
 
-		//ËãÊõÔËËã
-	case ADD:                   //°ÑÖ¸¶¨ÄÚ´æµ¥ÔªÖĞµÄ×ÖÓëÀÛ¼ÓÆ÷ÖĞµÄ×ÖÏà¼Ó£¬½á¹û±£´æÔÚÀÛ¼ÓÆ÷ÖĞ
+		//ç®—æœ¯è¿ç®—
+	case ADD:                   //æŠŠæŒ‡å®šå†…å­˜å•å…ƒä¸­çš„å­—ä¸ç´¯åŠ å™¨ä¸­çš„å­—ç›¸åŠ ï¼Œç»“æœä¿å­˜åœ¨ç´¯åŠ å™¨ä¸­
 		Proccessor.accumulator = Proccessor.accumulator + memory[Proccessor.operand];
 		Proccessor.structioncounter++;
 		break;
-	case SUBTRACT:              //°ÑÀÛ¼ÓÆ÷ÖĞµÄ×ÖÓëÖ¸¶¨ÄÚ´æµ¥ÔªÖĞµÄ×ÖÏà¼õ£¬½á¹û±£´æÔÚÀÛ¼ÓÆ÷ÖĞ
+	case SUBTRACT:              //æŠŠç´¯åŠ å™¨ä¸­çš„å­—ä¸æŒ‡å®šå†…å­˜å•å…ƒä¸­çš„å­—ç›¸å‡ï¼Œç»“æœä¿å­˜åœ¨ç´¯åŠ å™¨ä¸­
 		Proccessor.accumulator = Proccessor.accumulator - memory[Proccessor.operand];
 		Proccessor.structioncounter++;
 		break;
-	case DEVIDE:                //°ÑÀÛ¼ÓÆ÷ÖĞµÄ×Ö³ıÖ¸¶¨ÄÚ´æµ¥ÔªÖĞµÄ×Ö£¬½á¹û±£´æÔÚÀÛ¼ÓÆ÷ÖĞ
+	case DEVIDE:                //æŠŠç´¯åŠ å™¨ä¸­çš„å­—é™¤æŒ‡å®šå†…å­˜å•å…ƒä¸­çš„å­—ï¼Œç»“æœä¿å­˜åœ¨ç´¯åŠ å™¨ä¸­
 		if (!memory[Proccessor.operand]) {
 			printf("* ERROR!\n\n");
 			printf("* The divisor cannot be ZERO\n\n.");
@@ -196,16 +196,16 @@ int Run() {
 		Proccessor.accumulator = Proccessor.accumulator / memory[Proccessor.operand];
 		Proccessor.structioncounter++;
 		break;
-	case MULTIPLY:              //°ÑÀÛ¼ÓÆ÷ÖĞµÄ×ÖÓëÖ¸¶¨ÄÚ´æµ¥ÔªÖĞµÄ×ÖÏà³Ë£¬½á¹û±£´æÔÚÀÛ¼ÓÆ÷ÖĞ
+	case MULTIPLY:              //æŠŠç´¯åŠ å™¨ä¸­çš„å­—ä¸æŒ‡å®šå†…å­˜å•å…ƒä¸­çš„å­—ç›¸ä¹˜ï¼Œç»“æœä¿å­˜åœ¨ç´¯åŠ å™¨ä¸­
 		Proccessor.accumulator = Proccessor.accumulator * memory[Proccessor.operand];
 		Proccessor.structioncounter++;
 		break;
 
-		//¿ØÖÆ×ªÒÆ²Ù×÷
-	case BRANCH:                //×ªÒÆµ½Ö¸¶¨µÄÄÚ´æµ¥Ôª
+		//æ§åˆ¶è½¬ç§»æ“ä½œ
+	case BRANCH:                //è½¬ç§»åˆ°æŒ‡å®šçš„å†…å­˜å•å…ƒ
 		Proccessor.structioncounter = Proccessor.operand;
 		break;
-	case BRANCHNEG:             //ÈôÀÛ¼ÓÆ÷Îª¸º£¬×ªÒÆµ½Ö¸¶¨µÄÄÚ´æµ¥Ôª
+	case BRANCHNEG:             //è‹¥ç´¯åŠ å™¨ä¸ºè´Ÿï¼Œè½¬ç§»åˆ°æŒ‡å®šçš„å†…å­˜å•å…ƒ
 		if (Proccessor.accumulator < 0) {
 			Proccessor.structioncounter = Proccessor.operand;
 		}
@@ -213,7 +213,7 @@ int Run() {
 			Proccessor.structioncounter++;
 		}
 		break;
-	case BRANCHZERO:            //ÈôÀÛ¼ÓÆ÷Îª0£¬×ªÒÆµ½Ö¸¶¨µÄÄÚ´æµ¥Ôª
+	case BRANCHZERO:            //è‹¥ç´¯åŠ å™¨ä¸º0ï¼Œè½¬ç§»åˆ°æŒ‡å®šçš„å†…å­˜å•å…ƒ
 		if (Proccessor.accumulator == 0) {
 			Proccessor.structioncounter = Proccessor.operand;
 		}
@@ -221,7 +221,7 @@ int Run() {
 			Proccessor.structioncounter++;
 		}
 		break;
-	case HALT:             //Í£Ö¹£¬¼´³ÌĞòµÄÈÎÎñÍê³É
+	case HALT:             //åœæ­¢ï¼Œå³ç¨‹åºçš„ä»»åŠ¡å®Œæˆ
 		return 1;
 	}
 	return 0;
@@ -229,14 +229,14 @@ int Run() {
 
 void Computer_Dump1(int i) {
 
-	printf("NO.%d£º\n", i);
-	printf("¼Ä´æÆ÷£º\n\n");
+	printf("NO.%dï¼š\n", i);
+	printf("å¯„å­˜å™¨ï¼š\n\n");
 	printf("accumulator                 %10d\n", Proccessor.accumulator);
 	printf("instructionCounter                  %02d\n", Proccessor.structioncounter);
 	printf("instructionRegister              %+05d\n", Proccessor.structionregister);
 	printf("operationCode                       %02d\n", Proccessor.operationcode);
 	printf("operand                             %02d\n", Proccessor.operand);
-	printf("\nÄÚ´æ£º\n");
+	printf("\nå†…å­˜ï¼š\n");
 	printf("%8c", ' ');
 	for (int k = 0; k < 10; k++) {
 		printf("%8d", k);
@@ -259,14 +259,14 @@ void Computer_Dump1(int i) {
 
 void Computer_Dump2(int i) {
 
-	fprintf(fp_dump, "NO.%d£º\n", i);
-	fprintf(fp_dump, "¼Ä´æÆ÷£º\n\n");
+	fprintf(fp_dump, "NO.%dï¼š\n", i);
+	fprintf(fp_dump, "å¯„å­˜å™¨ï¼š\n\n");
 	fprintf(fp_dump, "accumulator                 %10d\n", Proccessor.accumulator);
 	fprintf(fp_dump, "instructionCounter                  %02d\n", Proccessor.structioncounter);
 	fprintf(fp_dump, "instructionRegister              %+05d\n", Proccessor.structionregister);
 	fprintf(fp_dump, "operationCode                       %02d\n", Proccessor.operationcode);
 	fprintf(fp_dump, "operand                             %02d\n", Proccessor.operand);
-	fprintf(fp_dump, "\nÄÚ´æ£º\n");
+	fprintf(fp_dump, "\nå†…å­˜ï¼š\n");
 	fprintf(fp_dump, "%8c", ' ');
 	for (int k = 0; k < 10; k++) {
 		fprintf(fp_dump, "%8d", k);
